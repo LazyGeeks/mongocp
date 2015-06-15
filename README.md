@@ -3,24 +3,40 @@
 A utility helps you copy data from remote MongoDB database to local one.
 
 
-## Usage
-
-### 1. Set the operation host
+## Copy now
 
 ```
-$ vi fabfile.py
-@hosts('user@operation-host')
+$ fab -H <dump-host> cp:<remote-mongodb-host>,<from-db>,<from-collection>,<query>,<local-mongodb-host>
 ```
 
-### 2. Start to copy
+Some descriptions about the arguments:
 
-```
-$ fab cp:<remote-mongodb-host>,<from-db>,<from-collection>,<query>,<local-mongodb-host>
-```
++ dump-host
+
+        the hostname of the server where to run `mognodump`
+
++ remote-mongodb-host
+
+        the hostname of the MongoDB from which to dump data
+
++ from-db
+
+        the name of the database from which to dump data
+
++ from-collection
+
+        the name of the collection from which to dump data
+
++ query
+
+        the query condition to limit the output documents
+
++ local-mongodb-host
+
+        the hostname of the MongoDB to which to restore data
 
 
 ## Todo
 
-+ Make the operation host customizable
 + Wrap this fabfile as an user-friendly command
 + Support more `mongodump` and `mongorestore` arguments and options

@@ -1,11 +1,10 @@
 import os
 import tempfile
 
-from fabric.api import task, hosts, local, run, get
+from fabric.api import task, local, run, get
 
 
 @task
-@hosts('user@operation-host')
 def cp(from_host, from_db, from_collection, query,
        to_host, to_db=None, to_collection=None):
     """Copy data from remote MongoDB database to local one."""
