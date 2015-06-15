@@ -6,37 +6,49 @@ A utility helps you copy data from remote MongoDB database to local one.
 ## Copy now
 
 ```
-$ fab -H <dump-host> cp:<remote-mongodb-host>,<from-db>,<from-collection>,<query>,<local-mongodb-host>
+$ fab -H <dump-host> cp:<from-host>,<from-db>,<from-collection>,<query>,<to-host>
 ```
 
 Some descriptions about the arguments:
 
 + dump-host
 
-        the hostname of the server where to run `mognodump`
+        The hostname of the server where to run `mongodump`.
 
-+ remote-mongodb-host
++ from-host
 
-        the hostname of the MongoDB from which to dump data
+        The hostname of the MongoDB from which to dump data.
 
 + from-db
 
-        the name of the database from which to dump data
+        The name of the database from which to dump data.
 
 + from-collection
 
-        the name of the collection from which to dump data
+        The name of the collection from which to dump data.
 
 + query
 
-        the query condition to limit the output documents
+        The query condition to limit the output documents.
 
-+ local-mongodb-host
++ to-host
 
-        the hostname of the MongoDB to which to restore data
+        The hostname of the MongoDB to which to restore data.
+
++ to-db
+
+        Default: <from-db>
+
+        The name of the database to which to restore data.
+
++ to-collection
+
+        Default: <from-collection>
+
+        The name of the collection to which to restore data.
 
 
 ## Todo
 
 + Wrap this fabfile as an user-friendly command
-+ Support more `mongodump` and `mongorestore` arguments and options
++ Support more arguments and options of `mongodump` and `mongorestore`
