@@ -1,19 +1,29 @@
 # mongocp
 
-A utility helps you copy data from remote MongoDB database to local one.
+A utility helps you copy data from a (remote or local) MongoDB database to another (local) one.
 
 
 ## Copy now
 
+Copy remotely:
+
 ```
 $ fab -H <dump_host> cp:<from_host>,<from_db>,<from_collection>,<query>,<to_host>
+```
+
+Copy locally:
+
+```
+$ fab cp:<from_host>,<from_db>,<from_collection>,<query>,<to_host>
 ```
 
 Some descriptions about the arguments:
 
 + dump_host
 
-        The hostname of the server where to run `mongodump`.
+        The host string of the server where to run `mongodump`. In the form
+        of `username@hostname:port`. If not specified, this utility will run
+        `mongodump` locally.
 
 + from_host
 
@@ -51,13 +61,15 @@ Some descriptions about the arguments:
 
         Default: ''
 
-        The the authentication parameters in the form `user:password@authentication_database` for dumping.
+        The authentication parameters for dumping. In the form of
+        `user:password@authentication_database`.
 
 + restore_auth
 
         Default: ''
 
-        The the authentication parameters in the form `user:password@authentication_database` for restoring.
+        The authentication parameters for restoring. In the form of
+        `user:password@authentication_database`.
 
 
 ## Todo

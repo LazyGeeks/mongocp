@@ -1,7 +1,7 @@
 import os
 import tempfile
 
-from fabric.api import task, local, run, get
+from fabric.api import task, local, run, get, env
 
 
 def make_auth_param(auth):
@@ -27,26 +27,40 @@ def make_auth_param(auth):
 def cp(from_host, from_db, from_collection, query,
        to_host, to_db=None, to_collection=None,
        dump_auth='', restore_auth=''):
-    """Copy data from remote MongoDB database to local one."""
+    """Copy data from a (remote or local) MongoDB database to
+    another (local) one.
+    """
     to_db = to_db or from_db
     to_collection = to_collection or from_collection
     dump_auth = make_auth_param(dump_auth)
     restore_auth = make_auth_param(restore_auth)
 
-    # Dump remotely
+    # The flag indicating whether to dump remotely
+    remote = bool(env.hosts)
+
+    # Make the temporary directory for dumping
     dump_tmp = tempfile.mkdtemp()
-    run(
-        'mongodump %s -h %s -d %s -c %s -q %r -o %s' % (
-            dump_auth, from_host, from_db, from_collection, query, dump_tmp
-        )
+
+    cmd = 'mongodump %s -h %s -d %s -c %s -q %r -o %s' % (
+        dump_auth, from_host, from_db, from_collection, query, dump_tmp
     )
 
-    # Download
-    restore_tmp = dump_tmp
-    get(dump_tmp, os.path.dirname(restore_tmp))
+    if remote:
+        # Dump remotely
+        run(cmd)
+    else:
+        # Dump locally
+        local(cmd)
 
-    # Clean up remote temporary directory
-    run('rm -rf %s' % dump_tmp)
+    # The temporary directory for restoring
+    restore_tmp = dump_tmp
+
+    if remote:
+        # Download
+        get(dump_tmp, os.path.dirname(restore_tmp))
+
+        # Clean up remote temporary directory
+        run('rm -rf %s' % dump_tmp)
 
     # Restore locally
     local(
