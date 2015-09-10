@@ -6,24 +6,24 @@ A utility helps you copy data from remote MongoDB database to local one.
 ## Copy now
 
 ```
-$ fab -H <dump-host> cp:<from-host>,<from-db>,<from-collection>,<query>,<to-host>
+$ fab -H <dump_host> cp:<from_host>,<from_db>,<from_collection>,<query>,<to_host>
 ```
 
 Some descriptions about the arguments:
 
-+ dump-host
++ dump_host
 
         The hostname of the server where to run `mongodump`.
 
-+ from-host
++ from_host
 
         The hostname of the MongoDB from which to dump data.
 
-+ from-db
++ from_db
 
         The name of the database from which to dump data.
 
-+ from-collection
++ from_collection
 
         The name of the collection from which to dump data.
 
@@ -31,21 +31,33 @@ Some descriptions about the arguments:
 
         The query condition to limit the output documents.
 
-+ to-host
++ to_host
 
         The hostname of the MongoDB to which to restore data.
 
-+ to-db
++ to_db
 
         Default: <from-db>
 
         The name of the database to which to restore data.
 
-+ to-collection
++ to_collection
 
         Default: <from-collection>
 
         The name of the collection to which to restore data.
+
++ dump_auth
+
+        Default: ''
+
+        The the authentication parameters in the form `user:password@authentication_database` for dumping.
+
++ restore_auth
+
+        Default: ''
+
+        The the authentication parameters in the form `user:password@authentication_database` for restoring.
 
 
 ## Todo
