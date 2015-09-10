@@ -8,18 +8,18 @@ def make_auth_args(auth):
     """Make the authentication arguments based on the `auth` string.
 
     The input string format:
-        'user:password@authentication_database'
+        `username:password@authentication_database`
 
     The output string format:
-        '--authenticationDatabase <authentication_database> -u<user> -p<password>'
+        `--authenticationDatabase <authentication_database> -u<username> -p<password>`
     """
     if not auth:
         return ''
 
     account, authentication_database = auth.split('@', 1)
-    user, password = account.split(':', 1)
+    username, password = account.split(':', 1)
     return '--authenticationDatabase %s -u%s -p%s' % (
-               authentication_database, user, password
+               authentication_database, username, password
            )
 
 

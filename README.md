@@ -65,14 +65,25 @@ Some descriptions about the arguments:
         Default: ''
 
         The authentication arguments for dumping. In the form of
-        `user:password@authentication_database`.
+        `username:password@authentication_database`.
 
 + restore_auth
 
         Default: ''
 
         The authentication arguments for restoring. In the form of
-        `user:password@authentication_database`.
+        `username:password@authentication_database`.
+
+
+## Examples
+
+Log on to `data@192.168.0.1`, dump the document whose `name` is `russellluo`, from the `user` collection of the `test` database of the remote MongoDB (`192.168.0.2`), which requires credentials `(root1, root1)` via the database `admin1`, to the `user` collection of the `test` database of the local MongoDB (`127.0.0.1`), which requires credentials `(root2, root2)` via the database `admin2`:
+
+```
+$ fab -H data@192.168.0.1 cp:192.168.0.2,test,user,'{"name": "russellluo"}',127.0.0.1,dump_auth='root1:root1@admin1',restore_auth='root2:root2@admin2'
+```
+
+Note that the target collection/database names are missing, since they are the same with the source ones.
 
 
 ## Todo
