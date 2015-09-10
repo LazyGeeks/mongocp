@@ -4,8 +4,8 @@ import tempfile
 from fabric.api import task, local, run, get, env
 
 
-def make_auth_param(auth):
-    """Make the authentication parameters based on the `auth` string.
+def make_auth_args(auth):
+    """Make the authentication arguments based on the `auth` string.
 
     The input string format:
         'user:password@authentication_database'
@@ -32,8 +32,8 @@ def cp(from_host, from_db, from_collection, query,
     """
     to_db = to_db or from_db
     to_collection = to_collection or from_collection
-    dump_auth = make_auth_param(dump_auth)
-    restore_auth = make_auth_param(restore_auth)
+    dump_auth = make_auth_args(dump_auth)
+    restore_auth = make_auth_args(restore_auth)
 
     # The flag indicating whether to dump remotely
     remote = bool(env.hosts)

@@ -17,6 +17,9 @@ Copy locally:
 $ fab cp:<from_host>,<from_db>,<from_collection>,<query>,<to_host>
 ```
 
+
+## Arguments
+
 Some descriptions about the arguments:
 
 + dump_host
@@ -61,14 +64,14 @@ Some descriptions about the arguments:
 
         Default: ''
 
-        The authentication parameters for dumping. In the form of
+        The authentication arguments for dumping. In the form of
         `user:password@authentication_database`.
 
 + restore_auth
 
         Default: ''
 
-        The authentication parameters for restoring. In the form of
+        The authentication arguments for restoring. In the form of
         `user:password@authentication_database`.
 
 
